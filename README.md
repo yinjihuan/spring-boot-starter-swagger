@@ -24,3 +24,7 @@ swagger.ui.confs[0].version=1.0
 swagger.ui.confs[1].group=user_auth
 swagger.ui.confs[1].paths=/rest/auth.*
 ```
+
+# 作者
+- 尹吉欢 1304489315@qq.com
+- 博客 http://cxytiandi.com/blogs/yinjihuan
