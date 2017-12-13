@@ -21,8 +21,18 @@ public class SwaggerProperties {
     private String licenseUrl = "http://cxytiandi.com";
 
     private String paths = "/error*";
+    
+    private boolean authHeader = false;
+    
+    public boolean isAuthHeader() {
+		return authHeader;
+	}
 
-    public boolean isEnable() {
+	public void setAuthHeader(boolean authHeader) {
+		this.authHeader = authHeader;
+	}
+
+	public boolean isEnable() {
         return enable;
     }
 

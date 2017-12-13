@@ -53,17 +53,20 @@ public class SwaggerAutoConfiguration extends WebMvcConfigurerAdapter {
 		DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) context.getBeanFactory();
 		List<SwaggerProperties> list = props.getConfs();
 		int index = 0;
-		//可以添加多个header或参数
-        ParameterBuilder parameterBuilder = new ParameterBuilder();
-        parameterBuilder.parameterType("header") //参数类型支持header, cookie, body, query etc
-                .name("Authorization") //参数名
-                .defaultValue("") //默认值
-                .description("API认证的TOKEN")
-                .modelRef(new ModelRef("string"))//指定参数值的类型
-                .required(false).build(); //非必需，这里是全局配置，然而在登陆的时候是不用验证的
-        List<Parameter> parameters = new ArrayList<Parameter>();
-        parameters.add(parameterBuilder.build());
+		
 		for (SwaggerProperties conf : list) {
+			//可以添加多个header或参数
+			List<Parameter> parameters = new ArrayList<Parameter>();
+	        ParameterBuilder parameterBuilder = new ParameterBuilder();
+	        if (conf.isAuthHeader()) {
+	        	 parameterBuilder.parameterType("header") //参数类型支持header, cookie, body, query etc
+	             .name("Authorization") //参数名
+	             .defaultValue("") //默认值
+	             .description("API认证的TOKEN")
+	             .modelRef(new ModelRef("string"))//指定参数值的类型
+	             .required(false).build(); //非必需，这里是全局配置，然而在登陆的时候是不用验证的
+	        	 parameters.add(parameterBuilder.build());
+			}
 			index++;
 			Docket doc = new Docket(DocumentationType.SWAGGER_2).groupName(conf.getGroup()).apiInfo(apiInfo(conf))
 					.genericModelSubstitutes(DeferredResult.class).useDefaultResponseMessages(false)
